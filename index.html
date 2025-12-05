@@ -1,0 +1,580 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IPO Dashboard - Live Analysis</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        success: '#10b981',
+                        warning: '#f59e0b',
+                        danger: '#ef4444',
+                        info: '#3b82f6'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- Header -->
+    <div class="bg-white shadow-lg border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between">
+                <div>
+                    <h1 class="text-3xl font-bold text-gray-900">📊 IPO Dashboard</h1>
+                    <p class="text-gray-600 mt-1">Live Analysis & Investment Recommendations</p>
+                </div>
+                <div class="mt-4 md:mt-0">
+                    <div class="bg-blue-50 border border-blue-200 rounded-lg px-4 py-2">
+                        <p class="text-sm text-blue-800 font-medium">Last Updated</p>
+                        <p class="text-sm text-blue-600">05 Dec 2025, 05:05 PM IST</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Market Overview Stats -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center">
+                            <span class="text-white font-bold text-sm">3</span>
+                        </div>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm font-medium text-gray-500">Active IPOs</p>
+                        <p class="text-2xl font-bold text-gray-900">3</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <div class="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center">
+                            <span class="text-white font-bold text-sm">₹</span>
+                        </div>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm font-medium text-gray-500">Avg GMP</p>
+                        <p class="text-2xl font-bold text-gray-900">₹32.3</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <div class="w-8 h-8 bg-yellow-500 rounded-full flex items-center justify-center">
+                            <span class="text-white font-bold text-sm">%</span>
+                        </div>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm font-medium text-gray-500">Avg ROI</p>
+                        <p class="text-2xl font-bold text-gray-900">28.73%</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <div class="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center">
+                            <span class="text-white font-bold text-sm">★</span>
+                        </div>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm font-medium text-gray-500">Best Opportunity</p>
+                        <p class="text-lg font-bold text-gray-900">44.14%</p>
+                        <p class="text-xs text-gray-500">Meesho</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main IPO Summary Table -->
+        <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+            <div class="px-6 py-4 border-b border-gray-200">
+                <h2 class="text-xl font-semibold text-gray-900">Current Active IPOs</h2>
+                <p class="text-sm text-gray-600 mt-1">Click on any row to view detailed analysis</p>
+            </div>
+            
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Company</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Period</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Subscriptions</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">GMP</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Profit %</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Rating</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Risk</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+
+                        <tr class="hover:bg-gray-50 cursor-pointer" onclick="toggleDetails('ipo-0')">
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="text-sm font-medium text-gray-900">Meesho</div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="text-sm text-gray-900">03 Dec to 05 Dec</div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span class="text-sm font-medium text-gray-900">11.23x</span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-yellow-100 text-yellow-800">
+                                    ₹49
+                                </span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span class="text-green-600 font-semibold">44.14%</span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-green-500 text-white">
+                                    STRONG BUY
+                                </span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-yellow-100 text-yellow-800">
+                                    MODERATE RISK
+                                </span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                <span id="arrow-ipo-0" class="text-gray-400">▶</span>
+                            </td>
+                        </tr>
+
+                        <tr id="details-ipo-0" class="hidden">
+                            <td colspan="8" class="px-6 py-4 bg-gray-50">
+                                <div class="space-y-6">
+
+                                    <div class="bg-white rounded-lg p-4 shadow-sm">
+                                        <h4 class="text-lg font-semibold text-gray-900 mb-3">🎯 Investment Analysis</h4>
+                                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                            <div>
+                                                <p class="text-sm text-gray-600">IPO Price</p>
+                                                <p class="text-lg font-semibold text-gray-900">₹111.0</p>
+                                            </div>
+                                            <div>
+                                                <p class="text-sm text-gray-600">Current GMP</p>
+                                                <p class="text-lg font-semibold text-gray-900">₹49</p>
+                                            </div>
+                                            <div>
+                                                <p class="text-sm text-gray-600">Est. Listing Price</p>
+                                                <p class="text-lg font-semibold text-gray-900">₹160.0</p>
+                                            </div>
+                                            <div>
+                                                <p class="text-sm text-gray-600">Expected Profit</p>
+                                                <p class="text-lg font-semibold text-green-600 font-semibold">
+                                                    ₹49 (44.14%)
+                                                </p>
+                                            </div>
+                                            <div>
+                                                <p class="text-sm text-gray-600">Investment Rating</p>
+                                                <span class="inline-flex px-3 py-1 text-sm font-semibold rounded-full bg-green-500 text-white">
+                                                    🟢 STRONG BUY
+                                                </span>
+                                            </div>
+                                            <div>
+                                                <p class="text-sm text-gray-600">Risk Assessment</p>
+                                                <span class="inline-flex px-3 py-1 text-sm font-semibold rounded-full bg-yellow-100 text-yellow-800">
+                                                    🟡 MODERATE RISK
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="bg-white rounded-lg p-4 shadow-sm">
+                                        <h4 class="text-lg font-semibold text-gray-900 mb-3">📊 Application Details</h4>
+                                        <div class="overflow-x-auto">
+                                            <table class="min-w-full divide-y divide-gray-200">
+                                                <thead class="bg-gray-50">
+                                                    <tr>
+                                                        <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Application</th>
+                                                        <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Lots</th>
+                                                        <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Shares</th>
+                                                        <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Amount</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="bg-white divide-y divide-gray-200">
+
+                                                    <tr>
+                                                        <td class="px-4 py-2 text-sm text-gray-900">Retail (Min)</td>
+                                                        <td class="px-4 py-2 text-sm text-gray-900">1</td>
+                                                        <td class="px-4 py-2 text-sm text-gray-900">135</td>
+                                                        <td class="px-4 py-2 text-sm text-gray-900">₹14,985</td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td class="px-4 py-2 text-sm text-gray-900">Retail (Max)</td>
+                                                        <td class="px-4 py-2 text-sm text-gray-900">13</td>
+                                                        <td class="px-4 py-2 text-sm text-gray-900">1,755</td>
+                                                        <td class="px-4 py-2 text-sm text-gray-900">₹1,94,805</td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td class="px-4 py-2 text-sm text-gray-900">S-HNI (Min)</td>
+                                                        <td class="px-4 py-2 text-sm text-gray-900">14</td>
+                                                        <td class="px-4 py-2 text-sm text-gray-900">1,890</td>
+                                                        <td class="px-4 py-2 text-sm text-gray-900">₹2,09,790</td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td class="px-4 py-2 text-sm text-gray-900">S-HNI (Max)</td>
+                                                        <td class="px-4 py-2 text-sm text-gray-900">66</td>
+                                                        <td class="px-4 py-2 text-sm text-gray-900">8,910</td>
+                                                        <td class="px-4 py-2 text-sm text-gray-900">₹9,89,010</td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td class="px-4 py-2 text-sm text-gray-900">B-HNI (Min)</td>
+                                                        <td class="px-4 py-2 text-sm text-gray-900">67</td>
+                                                        <td class="px-4 py-2 text-sm text-gray-900">9,045</td>
+                                                        <td class="px-4 py-2 text-sm text-gray-900">₹10,03,995</td>
+                                                    </tr>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr class="hover:bg-gray-50 cursor-pointer" onclick="toggleDetails('ipo-1')">
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="text-sm font-medium text-gray-900">Aequs</div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="text-sm text-gray-900">03 Dec to 05 Dec</div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span class="text-sm font-medium text-gray-900">62.91x</span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-yellow-100 text-yellow-800">
+                                    ₹45
+                                </span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span class="text-green-600 font-semibold">36.29%</span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-green-500 text-white">
+                                    STRONG BUY
+                                </span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-yellow-100 text-yellow-800">
+                                    MODERATE RISK
+                                </span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                <span id="arrow-ipo-1" class="text-gray-400">▶</span>
+                            </td>
+                        </tr>
+
+                        <tr id="details-ipo-1" class="hidden">
+                            <td colspan="8" class="px-6 py-4 bg-gray-50">
+                                <div class="space-y-6">
+
+                                    <div class="bg-white rounded-lg p-4 shadow-sm">
+                                        <h4 class="text-lg font-semibold text-gray-900 mb-3">🎯 Investment Analysis</h4>
+                                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                            <div>
+                                                <p class="text-sm text-gray-600">IPO Price</p>
+                                                <p class="text-lg font-semibold text-gray-900">₹124.0</p>
+                                            </div>
+                                            <div>
+                                                <p class="text-sm text-gray-600">Current GMP</p>
+                                                <p class="text-lg font-semibold text-gray-900">₹45</p>
+                                            </div>
+                                            <div>
+                                                <p class="text-sm text-gray-600">Est. Listing Price</p>
+                                                <p class="text-lg font-semibold text-gray-900">₹169.0</p>
+                                            </div>
+                                            <div>
+                                                <p class="text-sm text-gray-600">Expected Profit</p>
+                                                <p class="text-lg font-semibold text-green-600 font-semibold">
+                                                    ₹45 (36.29%)
+                                                </p>
+                                            </div>
+                                            <div>
+                                                <p class="text-sm text-gray-600">Investment Rating</p>
+                                                <span class="inline-flex px-3 py-1 text-sm font-semibold rounded-full bg-green-500 text-white">
+                                                    🟢 STRONG BUY
+                                                </span>
+                                            </div>
+                                            <div>
+                                                <p class="text-sm text-gray-600">Risk Assessment</p>
+                                                <span class="inline-flex px-3 py-1 text-sm font-semibold rounded-full bg-yellow-100 text-yellow-800">
+                                                    🟡 MODERATE RISK
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="bg-white rounded-lg p-4 shadow-sm">
+                                        <h4 class="text-lg font-semibold text-gray-900 mb-3">📊 Application Details</h4>
+                                        <div class="overflow-x-auto">
+                                            <table class="min-w-full divide-y divide-gray-200">
+                                                <thead class="bg-gray-50">
+                                                    <tr>
+                                                        <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Application</th>
+                                                        <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Lots</th>
+                                                        <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Shares</th>
+                                                        <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Amount</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="bg-white divide-y divide-gray-200">
+
+                                                    <tr>
+                                                        <td class="px-4 py-2 text-sm text-gray-900">Retail (Min)</td>
+                                                        <td class="px-4 py-2 text-sm text-gray-900">1</td>
+                                                        <td class="px-4 py-2 text-sm text-gray-900">120</td>
+                                                        <td class="px-4 py-2 text-sm text-gray-900">₹14,880</td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td class="px-4 py-2 text-sm text-gray-900">Retail (Max)</td>
+                                                        <td class="px-4 py-2 text-sm text-gray-900">13</td>
+                                                        <td class="px-4 py-2 text-sm text-gray-900">1,560</td>
+                                                        <td class="px-4 py-2 text-sm text-gray-900">₹1,93,440</td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td class="px-4 py-2 text-sm text-gray-900">S-HNI (Min)</td>
+                                                        <td class="px-4 py-2 text-sm text-gray-900">14</td>
+                                                        <td class="px-4 py-2 text-sm text-gray-900">1,680</td>
+                                                        <td class="px-4 py-2 text-sm text-gray-900">₹2,08,320</td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td class="px-4 py-2 text-sm text-gray-900">S-HNI (Max)</td>
+                                                        <td class="px-4 py-2 text-sm text-gray-900">67</td>
+                                                        <td class="px-4 py-2 text-sm text-gray-900">8,040</td>
+                                                        <td class="px-4 py-2 text-sm text-gray-900">₹9,96,960</td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td class="px-4 py-2 text-sm text-gray-900">B-HNI (Min)</td>
+                                                        <td class="px-4 py-2 text-sm text-gray-900">68</td>
+                                                        <td class="px-4 py-2 text-sm text-gray-900">8,160</td>
+                                                        <td class="px-4 py-2 text-sm text-gray-900">₹10,11,840</td>
+                                                    </tr>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr class="hover:bg-gray-50 cursor-pointer" onclick="toggleDetails('ipo-2')">
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="text-sm font-medium text-gray-900">Vidya Wires</div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="text-sm text-gray-900">03 Dec to 05 Dec</div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span class="text-sm font-medium text-gray-900">25.13x</span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">
+                                    ₹3
+                                </span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span class="text-yellow-600 font-medium">5.77%</span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-orange-500 text-white">
+                                    WEAK BUY
+                                </span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">
+                                    LOW RISK
+                                </span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                <span id="arrow-ipo-2" class="text-gray-400">▶</span>
+                            </td>
+                        </tr>
+
+                        <tr id="details-ipo-2" class="hidden">
+                            <td colspan="8" class="px-6 py-4 bg-gray-50">
+                                <div class="space-y-6">
+
+                                    <div class="bg-white rounded-lg p-4 shadow-sm">
+                                        <h4 class="text-lg font-semibold text-gray-900 mb-3">🎯 Investment Analysis</h4>
+                                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                            <div>
+                                                <p class="text-sm text-gray-600">IPO Price</p>
+                                                <p class="text-lg font-semibold text-gray-900">₹52.0</p>
+                                            </div>
+                                            <div>
+                                                <p class="text-sm text-gray-600">Current GMP</p>
+                                                <p class="text-lg font-semibold text-gray-900">₹3</p>
+                                            </div>
+                                            <div>
+                                                <p class="text-sm text-gray-600">Est. Listing Price</p>
+                                                <p class="text-lg font-semibold text-gray-900">₹55.0</p>
+                                            </div>
+                                            <div>
+                                                <p class="text-sm text-gray-600">Expected Profit</p>
+                                                <p class="text-lg font-semibold text-yellow-600 font-medium">
+                                                    ₹3 (5.77%)
+                                                </p>
+                                            </div>
+                                            <div>
+                                                <p class="text-sm text-gray-600">Investment Rating</p>
+                                                <span class="inline-flex px-3 py-1 text-sm font-semibold rounded-full bg-orange-500 text-white">
+                                                    🟠 WEAK BUY
+                                                </span>
+                                            </div>
+                                            <div>
+                                                <p class="text-sm text-gray-600">Risk Assessment</p>
+                                                <span class="inline-flex px-3 py-1 text-sm font-semibold rounded-full bg-green-100 text-green-800">
+                                                    🟢 LOW RISK
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="bg-white rounded-lg p-4 shadow-sm">
+                                        <h4 class="text-lg font-semibold text-gray-900 mb-3">📊 Application Details</h4>
+                                        <div class="overflow-x-auto">
+                                            <table class="min-w-full divide-y divide-gray-200">
+                                                <thead class="bg-gray-50">
+                                                    <tr>
+                                                        <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Application</th>
+                                                        <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Lots</th>
+                                                        <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Shares</th>
+                                                        <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Amount</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="bg-white divide-y divide-gray-200">
+
+                                                    <tr>
+                                                        <td class="px-4 py-2 text-sm text-gray-900">Retail (Min)</td>
+                                                        <td class="px-4 py-2 text-sm text-gray-900">1</td>
+                                                        <td class="px-4 py-2 text-sm text-gray-900">288</td>
+                                                        <td class="px-4 py-2 text-sm text-gray-900">₹14,976</td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td class="px-4 py-2 text-sm text-gray-900">Retail (Max)</td>
+                                                        <td class="px-4 py-2 text-sm text-gray-900">13</td>
+                                                        <td class="px-4 py-2 text-sm text-gray-900">3,744</td>
+                                                        <td class="px-4 py-2 text-sm text-gray-900">₹1,94,688</td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td class="px-4 py-2 text-sm text-gray-900">S-HNI (Min)</td>
+                                                        <td class="px-4 py-2 text-sm text-gray-900">14</td>
+                                                        <td class="px-4 py-2 text-sm text-gray-900">4,032</td>
+                                                        <td class="px-4 py-2 text-sm text-gray-900">₹2,09,664</td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td class="px-4 py-2 text-sm text-gray-900">S-HNI (Max)</td>
+                                                        <td class="px-4 py-2 text-sm text-gray-900">66</td>
+                                                        <td class="px-4 py-2 text-sm text-gray-900">19,008</td>
+                                                        <td class="px-4 py-2 text-sm text-gray-900">₹9,88,416</td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td class="px-4 py-2 text-sm text-gray-900">B-HNI (Min)</td>
+                                                        <td class="px-4 py-2 text-sm text-gray-900">67</td>
+                                                        <td class="px-4 py-2 text-sm text-gray-900">19,296</td>
+                                                        <td class="px-4 py-2 text-sm text-gray-900">₹10,03,392</td>
+                                                    </tr>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Market Summary -->
+        <div class="mt-8 bg-white rounded-lg shadow-md p-6">
+            <h3 class="text-lg font-semibold text-gray-900 mb-4">📊 Market Summary</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+
+                <div class="text-center">
+                    <span class="inline-flex px-3 py-1 text-sm font-semibold rounded-full bg-green-500 text-white">
+                        STRONG BUY
+                    </span>
+                    <p class="text-2xl font-bold text-gray-900 mt-2">2</p>
+                    <p class="text-sm text-gray-500">66.7% of IPOs</p>
+                </div>
+
+                <div class="text-center">
+                    <span class="inline-flex px-3 py-1 text-sm font-semibold rounded-full bg-orange-500 text-white">
+                        WEAK BUY
+                    </span>
+                    <p class="text-2xl font-bold text-gray-900 mt-2">1</p>
+                    <p class="text-sm text-gray-500">33.3% of IPOs</p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript for interactions -->
+    <script>
+        function toggleDetails(companyId) {
+            const details = document.getElementById(`details-${companyId}`);
+            const arrow = document.getElementById(`arrow-${companyId}`);
+            
+            if (details.classList.contains('hidden')) {
+                details.classList.remove('hidden');
+                arrow.innerHTML = '▼';
+                arrow.classList.add('text-blue-500');
+                arrow.classList.remove('text-gray-400');
+            } else {
+                details.classList.add('hidden');
+                arrow.innerHTML = '▶';
+                arrow.classList.add('text-gray-400');
+                arrow.classList.remove('text-blue-500');
+            }
+        }
+
+        // Auto-refresh functionality (optional)
+        function refreshData() {
+            window.location.reload();
+        }
+
+        // Add refresh button functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // You can add automatic refresh here if needed
+        });
+    </script>
+</body>
+</html>
